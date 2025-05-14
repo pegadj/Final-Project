@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="Final Project.css">
+
+        </head>
+        <body>
+ <!--
+           <div id="anony">
+                <div class="character-section">
+                    <div class="character" id="avatarAnony"> </div>
+                    <div class="title-input"> 
+                        <h1> Choose a Character</h1>
+                        <input type="text" placeholder="Nickname" class="nickname-input">
+                    </div>
+                </div>
+                <p class="login-text"> Click <a href="#" onclick="showLogin()" class="login-link"> Login </a> if you want to sign in. </p>
+                <button class="start-button"> Start </button>
+            </div>
+
+            <div id="login"> 
+                <div class="character-section">
+                    <div class="character" id="avatarLogin"> </div>
+                    <div class="title-input"> 
+                        <h1> Choose a Character</h1>
+                        <input type="text" placeholder="Nickname" class="nickname-input">
+                        <input type="password" placeholder="Password" class="password-input">
+                    </div>
+                </div>
+                <button class="start-button"> Start </button>
+            </div>
+
+            <div id="help">
+                <div id="knowhow"> 
+                    <h2> How to play? </h2>
+    
+                    <div id="navigation">
+                        <div> <button onclick="showSection('anony')"> <img src="Home.png" alt="Home"> </button> </div>
+                        <div> <button onclick="showSection('help')"> <img src="Help.png" alt="Help"> </button> </div>
+                        <div> <button onclick="showSettings('settings')"> <img src="Settings.png" alt="Settings"> </button> </div>
+                    </div>
+    
+                    <div id="howto">
+                        <div class="steps">
+                            <div class="num"> 1 </div>
+                            <div class="ins">
+                                <h3> Watch the Sequence </h3>
+                                <p> A sequence of buttons will light up on the screen. </p>
+                            </div>
+                        </div>
+    
+                        <div class="steps">
+                            <div class="num"> 2 </div>
+                            <div class="ins">
+                                <h3> Repeat the Sequence </h3>
+                                <p> Enter the sequence correctly. Each successful round adds an extra step. </p>
+                            </div>
+                        </div>
+    
+                        <div class="steps">
+                            <div class="num"> 3 </div>
+                            <div class="ins">
+                                <h3> Avoid Mistakes </h3>
+                                <p> Incorrect inputs will reset the progress and end the game. </p>
+                            </div>
+                        </div>
+                    
+                        <div class="steps">
+                            <div class="num"> 4 </div>
+                            <div class="ins">
+                                <h3> Choose Your Mode </h3>
+                                <p> The game defaults to normal mode, but you can switch to Color, Numbers, or Letter mode. </p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <button class="continue-button"> Continue </button>
+
+                </div>
+
+            </div>
+        -->
+            <div id="settings"> 
+                <div id="navigation">
+                        <div> <button onclick="showSection('anony')"> <img src="Home.png" alt="Home"> </button> </div>
+                        <div> <button onclick="showSection('help')"> <img src="Help.png" alt="Help"> </button> </div>
+                        <div> <button onclick="showSettings('settings')"> <img src="Settings.png" alt="Settings"> </button> </div>
+                </div>
+
+                <div id="leaderboard">
+                    <h2> Leaderboard</h2>
+                    <div id="ranking"> 
+                       <!-- <span id="user" class="user"> Rey </span> -->
+                    </div>
+                </div>
+
+                <div id="game-modes">
+                    <h2> Game Modes</h2>
+
+                    <div id="modes">
+                        <button>
+                        <div id="colors">
+                            <h3> Colors</h3>
+                            <div class="grid" id="colorGrid">
+                            
+                            </div>
+                            <p> You must match a sequence of flashing colors by pressing the correct order </p>
+                        </div>
+                        </button>
+
+                        <button>
+                        <div id="numbers">
+                            <h3> Numbers </h3>
+                            <div class="grid" id="numberGrid">
+                            
+                            </div>
+                            <p> A sequence of numbers appears and players must memorize and input them in the correct given order </p>
+                        </div>
+                        </button>
+
+                        <button>
+                        <div id="letters">
+                            <h3> Letters </h3>
+                            <div class="grid" id="letterGrid">
+                            
+                            </div>
+                            <p> A sequence of letter appears and players must memorize and input them in the correct given order </p>
+                        </div>
+                        </button>
+                    </div>
+                    
+                    <div class="selected">
+                        <span id="count" class="count"> 0 </span>
+                        <span class="selected-mode"> Selected </span>
+                    </div>
+
+                    <button class="start-button"> Start </button>
+
+                </div>
+        
+               
+                
+            </div>
+    
+        <script src="Final Project.js"></script>
+            
+        </body>
+</html>
