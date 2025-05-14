@@ -47,14 +47,14 @@ function updateAvatar(seed, targetId) {
     `;
 }
 
-// Setup for #anony nickname input
+// #anony nickname input
 const anonyNicknameInput = document.querySelector('#anony .nickname-input');
 anonyNicknameInput.addEventListener('input', (e) => {
   const seed = e.target.value.trim() || 'guest';
   updateAvatar(seed, 'avatarAnony');
 });
 
-// Setup for #login nickname input
+// #login nickname input
 const loginNicknameInput = document.querySelector('#login .nickname-input');
 loginNicknameInput.addEventListener('input', (e) => {
   const seed = e.target.value.trim() || 'user';
