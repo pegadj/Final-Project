@@ -416,3 +416,156 @@ img {
     justify-content: center;
     align-items: center;
 }
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 30px;
+    padding: 5px;
+    background-color: rgb(194, 49, 9);
+    height: 600px;
+    width: 600px;
+}
+.game-container{
+    flex-wrap: wrap;
+    background-color: rgb(141, 1, 1);
+    column-gap: 10px;
+    row-gap: 10px;
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+.gameBox{
+    background-color: rgb(108, 108, 108);
+    height: 150px;
+    width: 150px;
+    border: 2px solid black;
+    font: 100px arial;
+    font-weight: bold;
+    color: black;
+    border-radius: 10px;
+    gap: 10px;
+}
+button:hover{
+    background-color: rgb(130, 130, 130);
+}
+button:active{
+    background-color: rgb(184, 184, 184);
+}
+.flash{
+     filter: brightness(200%);
+}
+.inputContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+#inputField{
+    height: 30px;
+    width: 125px;
+    margin: 10px;
+    margin-right:4px ;
+    padding: 5px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px   ;
+}   
+#submit{
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+    border: none;   
+    margin-left:4px ;
+    color: white;   
+    padding: 5px;
+    background-color: rgb(38, 207, 38);
+    border-radius: 2.5px;
+}
+#submit:hover{
+    filter: brightness(120%);
+    color: white;
+}
+#submit:active{
+    filter: brightness(250%);
+    color: white;
+}
+
+.modeInputs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 30px;
+    padding: 5px;
+    background-color: rgb(194, 49, 9);
+}
+.colors{
+    flex-wrap: wrap;
+    background-color: rgb(141, 1, 1);
+    column-gap: 10px;
+    row-gap: 10px;
+    display: grid;
+    margin: 0px 15px 15px 15px;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+}
+.color{
+    background-color: rgb(108, 108, 108);
+    height: 75px;
+    width: 75px;
+    border: 2px solid black;
+    border-radius: 10px;
+    gap: 10px;
+}
+#red{
+    background-color: rgb(255, 0, 0);
+}
+#lime{
+    background-color: rgb(0, 255, 0);
+}
+#blue{
+    background-color: rgb(0, 0, 255);
+}
+#yellow{
+    background-color: rgb(255, 255, 0);
+}
+.popUp{
+background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+.popUpContainer{
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+    padding: 100px;
+}
+#closePopup{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+}
+#closePopup:hover{
+    filter: brightness(220%);
+}
+#closePopup:active{
+    filter: brightness(350%);
+}
