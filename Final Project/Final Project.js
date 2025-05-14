@@ -7,12 +7,19 @@ function showLogin() {
 // Start button 
 function handleStartClick(sectionId) {
     document.getElementById(sectionId).style.display = 'none';
-    document.getElementById('help').style.display = 'block';
+    document.getElementById('settings').style.display = 'block';
 }
 
 document.querySelector('#anony .start-button').addEventListener('click', () => handleStartClick('anony'));
 document.querySelector('#login .start-button').addEventListener('click', () => handleStartClick('login'));
 
+//continue button
+function handleStartClick(sectionId) {
+    document.getElementById(sectionId).style.display = 'none';
+    document.getElementById('settings').style.display = 'block';
+}
+
+document.querySelector('#help .continue-button').addEventListener('click', () => handleStartClick('help'));
 
 // navigation functions
 function showSection(sectionId) {
