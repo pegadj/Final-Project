@@ -12,6 +12,12 @@ body {
     background-color: #DEE7E5;
 }
 
+a {
+    text-decoration: none;
+    text-emphasis: none;
+    color: #DEE7E5;
+}
+
 #anony, #login {
     background-color: #F4EFC8;
     padding: 30px;
@@ -25,7 +31,7 @@ body {
 
 #login {
     text-align: center;
-    display: none;
+    display: block;
 }
 
 .character-section {
@@ -109,9 +115,25 @@ input {
     background-color: #0d3b6b;
 }
 
+/*navigation */
+
+
+.nav-frame {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 200px;
+    height: 60px;
+    border: none;
+    overflow: hidden;
+    background: transparent;
+}
+
+
 /* help css */
 #help {
-    display: none;
+    display: block;
 }
 
 #howto {
@@ -215,7 +237,7 @@ img {
 
 /* settings styles */
 #settings {
-    display: none;
+    display: block;
     flex-direction: column;
     align-items: center;
     position: absolute;
