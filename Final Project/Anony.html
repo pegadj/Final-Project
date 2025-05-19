@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="Final Project.css">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Final Project.css">
 
-        </head>
-        <body>
- 
-           <div id="anony">
-                <div class="character-section">
-                    <div class="character" id="avatarAnony"> </div>
-                    <div class="title-input"> 
-                        <h1> Choose a Character</h1>
-                        <input type="text" placeholder="Nickname" class="nickname-input">
-                    </div>
+    </head>
+    <body>
+
+       <div id="anony">
+            <div class="character-section">
+                <div class="character" id="avatarAnony"> </div>
+                <div class="title-input"> 
+                    <h1> Choose a Character</h1>
+                    <form id="anonyForm" onsubmit="return false;">
+                        <input type="text" placeholder="Nickname" class="nickname-input" id="anonyNickname" required>
+                    </form>
                 </div>
-                <p class="login-text"> Click <a href="Login.html" class="login-link"> Login </a> if you want to sign in. </p>
-                <button class="continue-button"> <a href="Settings.html"> Continue </a> </button>
             </div>
+            <p class="login-text"> Click <a href="Login.html" class="login-link"> Login </a> if you want to sign in. </p>
+            <button class="continue-button" onclick="handleAnonymousLogin()">Continue</button>
+        </div>
 
-        <script src="Final Project.js"></script>
-            
-        </body>
+    <script src="Final Project.js"></script>
+        
+    </body>
 </html>

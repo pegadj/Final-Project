@@ -1,30 +1,153 @@
 // Avatar
 const style = "bottts";
 
+// Update the avatar function
 function updateAvatar(seed, targetId) {
-  const avatarURL = `https://api.dicebear.com/8.x/${style}/svg?seed=${encodeURIComponent(seed)}`;
-  document.getElementById(targetId).innerHTML = `
-    <img src="${avatarURL}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
-    `;
+    const avatarURL = `https://api.dicebear.com/8.x/${style}/svg?seed=${encodeURIComponent(seed)}`;
+    const avatarElement = document.getElementById(targetId);
+    if (avatarElement) {
+        avatarElement.innerHTML = `
+            <img src="${avatarURL}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+        `;
+    }
 }
 
-// #anony nickname input
-const anonyNicknameInput = document.querySelector('#anony .nickname-input');
-anonyNicknameInput.addEventListener('input', (e) => {
-  const seed = e.target.value.trim() || 'guest';
-  updateAvatar(seed, 'avatarAnony');
+// Update the event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Login avatar update
+    const loginInput = document.querySelector('#loginNickname');
+    if (loginInput) {
+        loginInput.addEventListener('input', (e) => {
+            const seed = e.target.value.trim() || 'user';
+            updateAvatar(seed, 'avatarLogin');
+        });
+        // Initialize login avatar
+        updateAvatar('user', 'avatarLogin');
+    }
+
+    // Anonymous avatar update
+    const anonyInput = document.querySelector('#anonyNickname');
+    if (anonyInput) {
+        anonyInput.addEventListener('input', (e) => {
+            const seed = e.target.value.trim() || 'guest';
+            updateAvatar(seed, 'avatarAnony');
+        });
+        // Initialize anonymous avatar
+        updateAvatar('guest', 'avatarAnony');
+    }
 });
 
-// #login nickname input
-const loginNicknameInput = document.querySelector('#login .nickname-input');
-loginNicknameInput.addEventListener('input', (e) => {
-  const seed = e.target.value.trim() || 'user';
-  updateAvatar(seed, 'avatarLogin');
+
+// Login validation
+function validateLogin() {
+  const username = document.getElementById('loginNickname').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  if (!username || !password) {
+    alert('Both username and password are required');
+    return false;
+  }
+
+  // Check if user exists in localStorage
+  const user = JSON.parse(localStorage.getItem(username));
+  if (!user || user.password !== password) {
+    alert('Invalid username or password');
+    return false;
+  }
+
+  // Store logged in user
+  localStorage.setItem('loggedInUser', username);
+  return true;
+}
+
+// Register validation
+function registerUser() {
+  const username = document.getElementById('registerNickname').value.trim();
+  const password = document.getElementById('registerPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+
+  if (!username || !password || !confirmPassword) {
+    alert('All fields are required');
+    return false;
+  }
+
+  if (password !== confirmPassword) {
+    alert('Passwords do not match');
+    return false;
+  }
+
+  if (localStorage.getItem(username)) {
+    alert('Username already exists');
+    return false;
+  }
+
+  // Save user data
+  const user = {
+    username: username,
+    password: password,
+    avatarSeed: username
+  };
+
+  localStorage.setItem(username, JSON.stringify(user));
+  localStorage.setItem('loggedInUser', username);
+  
+  alert('Registration successful! Redirecting to settings...');
+  window.location.href = 'Settings.html';
+  return true;
+}
+
+// Guest mode
+function handleAnonymousLogin() {
+    const nickname = document.querySelector('#anonyNickname').value.trim();
+    
+    // Debug log
+    console.log('Nickname entered:', nickname);
+
+    if (!nickname) {
+        alert('Please enter a nickname');
+        return false;
+    }
+
+    try {
+        localStorage.setItem('guestNickname', nickname);
+        window.location.href = 'Settings.html';
+        return true;
+    } catch (error) {
+        console.error('Error saving nickname:', error);
+        alert('An error occurred. Please try again.');
+        return false;
+    }
+}
+
+// Remove the old event listener since we're using onclick now
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize avatar
+    updateAvatar('guest', 'avatarAnony');
 });
 
-// Initial avatars
-updateAvatar('guest', 'avatarAnony');
-updateAvatar('user', 'avatarLogin');
+// Add this new function
+function handleLogin() {
+    const username = document.getElementById('loginNickname').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    if (!username || !password) {
+        alert('Both username and password are required');
+        return false;
+    }
+
+    // Check if user exists in localStorage
+    const user = JSON.parse(localStorage.getItem(username));
+    if (!user || user.password !== password) {
+        alert('Invalid username or password');
+        return false;
+    }
+
+    // If validation passes, store logged in user and redirect
+    localStorage.setItem('loggedInUser', username);
+    window.location.href = 'Settings.html';
+    return true;
+}
+
 
 
 

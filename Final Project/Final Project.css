@@ -60,7 +60,7 @@ a {
 }
 
 #register .title-input {
-    margin-top: -10px;  /* Changed from 0 to move higher */
+    margin-top: -5px;  /* Changed from 0 to move higher */
 }
 
 .character {
@@ -70,10 +70,6 @@ a {
    border-radius: 50%;
    margin: 0 60px;
    overflow: hidden;
-}
-
-#register .character {
-    margin: -30px 60px 0;  /* Changed from -30px to move higher */
 }
 
 input {
