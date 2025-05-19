@@ -12,7 +12,6 @@ function updateAvatar(seed, targetId) {
     }
 }
 
-// Update the event listeners
 document.addEventListener('DOMContentLoaded', function() {
     // Login avatar update
     const loginInput = document.querySelector('#loginNickname');
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const seed = e.target.value.trim() || 'user';
             updateAvatar(seed, 'avatarLogin');
         });
-        // Initialize login avatar
+        
         updateAvatar('user', 'avatarLogin');
     }
 
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const seed = e.target.value.trim() || 'guest';
             updateAvatar(seed, 'avatarAnony');
         });
-        // Initialize anonymous avatar
+        
         updateAvatar('guest', 'avatarAnony');
     }
 });
@@ -119,13 +118,7 @@ function handleAnonymousLogin() {
     }
 }
 
-// Remove the old event listener since we're using onclick now
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize avatar
-    updateAvatar('guest', 'avatarAnony');
-});
-
-// Add this new function
+//login functionality
 function handleLogin() {
     const username = document.getElementById('loginNickname').value.trim();
     const password = document.getElementById('loginPassword').value;
@@ -135,14 +128,12 @@ function handleLogin() {
         return false;
     }
 
-    // Check if user exists in localStorage
     const user = JSON.parse(localStorage.getItem(username));
     if (!user || user.password !== password) {
         alert('Invalid username or password');
         return false;
     }
 
-    // If validation passes, store logged in user and redirect
     localStorage.setItem('loggedInUser', username);
     window.location.href = 'Settings.html';
     return true;
