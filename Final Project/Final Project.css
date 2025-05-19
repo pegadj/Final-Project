@@ -409,7 +409,7 @@ img {
 
 
 /*game css*/
-#game{
+/* #game{
     margin: 0%;
     padding: 0%;
     display: none;
@@ -568,4 +568,4 @@ background: rgba(0, 0, 0, 0.5);
 }
 #closePopup:active{
     filter: brightness(350%);
-}
+} */

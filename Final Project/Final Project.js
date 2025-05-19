@@ -133,7 +133,7 @@ document.querySelector('#settings .start-button').addEventListener('click', () =
 
 
 
-// Game Function
+// // Game Function
 
 const gameButton = document.querySelectorAll(".gameBox");
 const colors = document.querySelectorAll(".colors");
