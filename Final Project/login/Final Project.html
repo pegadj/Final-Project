@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Final Project.css">
+    <title>Character Login System</title>
+</head>
+<body>
+    <!-- Anonymous Section -->
+    <div id="anony">
+        <div class="character-section">
+            <div class="character" id="avatarAnony"></div>
+            <div class="title-input"> 
+                <h1>Choose a Character</h1>
+                <input type="text" placeholder="Nickname" class="nickname-input">
+            </div>
+        </div>
+        <p class="login-text">Click <a href="#" onclick="showLogin()" class="login-link">Login</a> if you want to sign in.</p>
+        <button class="continue-button" onclick="continueAsGuest()">Continue as Guest</button>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login" style="display: none;">
+        <div class="character-section">
+            <div class="character" id="avatarLogin"></div>
+            <div class="title-input"> 
+                <h1>Login or Register</h1>
+                <input type="text" placeholder="Username" class="nickname-input" id="loginUsername">
+                <input type="password" placeholder="Password" class="password-input" id="loginPassword">
+            </div>
+        </div>
+        <p class="login-text">New user? <a href="#" onclick="showRegister()" class="login-link">Register</a></p>
+        <button class="continue-button" onclick="loginUser()">Login</button>
+    </div>
+
+    <!-- Register Section -->
+    <div id="register" style="display: none;">
+        <div class="character-section">
+            <div class="character" id="avatarRegister"></div>
+            <div class="title-input"> 
+                <h1>Create Account</h1>
+                <input type="text" placeholder="Username" class="nickname-input" id="registerUsername">
+                <input type="password" placeholder="Password" class="password-input" id="registerPassword">
+                <input type="password" placeholder="Confirm Password" class="password-input" id="confirmPassword">
+            </div>
+        </div>
+        <p class="login-text">Already have an account? <a href="#" onclick="showLogin()" class="login-link">Login</a></p>
+        <button class="continue-button" onclick="registerUser()">Register</button>
+    </div>
+
+    <!-- Welcome Section -->
+    <div id="welcome" style="display: none;">
+        <div class="character-section">
+            <div class="character" id="avatarWelcome"></div>
+            <div class="title-input"> 
+                <h1>Welcome, <span id="welcomeUsername"></span>!</h1>
+                <button class="continue-button" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="Final Project.js"></script>
+</body>
+</html>
