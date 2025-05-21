@@ -34,6 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateAvatar('guest', 'avatarAnony');
     }
+
+    // continue button in Help page
+    const helpContinueBtn = document.querySelector('#help .continue-button');
+    if (helpContinueBtn) {
+        helpContinueBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'Settings.html';
+        });
+    }
 });
 
 
