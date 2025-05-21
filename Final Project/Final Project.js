@@ -29,17 +29,6 @@ function updateAvatar(seed, targetId) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Login avatar update
-    const loginInput = document.querySelector('#loginNickname');
-    if (loginInput) {
-        loginInput.addEventListener('input', (e) => {
-            const seed = e.target.value.trim() || 'user';
-            updateAvatar(seed, 'avatarLogin');
-        });
-        
-        updateAvatar('user', 'avatarLogin');
-    }
-
     // Anonymous avatar update
     const anonyInput = document.querySelector('#anonyNickname');
     if (anonyInput) {
@@ -62,107 +51,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Login validation
-function validateLogin() {
-  const username = document.getElementById('loginNickname').value.trim();
-  const password = document.getElementById('loginPassword').value;
-
-  if (!username || !password) {
-    alert('Both username and password are required');
-    return false;
-  }
-
-  // Check if user exists in localStorage
-  const user = JSON.parse(localStorage.getItem(username));
-  if (!user || user.password !== password) {
-    alert('Invalid username or password');
-    return false;
-  }
-
-  // Store logged in user
-  localStorage.setItem('loggedInUser', username);
-  return true;
-}
-
-// Register validation
-function registerUser() {
-  const username = document.getElementById('registerNickname').value.trim();
-  const password = document.getElementById('registerPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-
-  if (!username || !password || !confirmPassword) {
-    alert('All fields are required');
-    return false;
-  }
-
-  if (password !== confirmPassword) {
-    alert('Passwords do not match');
-    return false;
-  }
-
-  if (localStorage.getItem(username)) {
-    alert('Username already exists');
-    return false;
-  }
-
-  // Save user data
-  const user = {
-    username: username,
-    password: password,
-    avatarSeed: username
-  };
-
-  localStorage.setItem(username, JSON.stringify(user));
-  localStorage.setItem('loggedInUser', username);
-  
-  alert('Registration successful! Redirecting to settings...');
-  window.location.href = 'Settings.html';
-  return true;
-}
-
 // Guest mode
 function handleAnonymousLogin() {
     const nickname = document.querySelector('#anonyNickname').value.trim();
     
-    // Debug log
-    console.log('Nickname entered:', nickname);
-
     if (!nickname) {
         alert('Please enter a nickname');
         return false;
     }
 
     try {
-        localStorage.setItem('guestNickname', nickname);
+        // Check if user already exists
+        const existingUser = localStorage.getItem('guestNickname');
+        if (existingUser === nickname) {
+            console.log('Existing user found:', nickname);
+        } else {
+            // Store new user
+            localStorage.setItem('guestNickname', nickname);
+            console.log('New user stored:', nickname);
+        }
+
+        // Store current session user
+        localStorage.setItem('currentUser', nickname);
+        
+        // Navigate to settings
         window.location.href = 'Settings.html';
         return true;
     } catch (error) {
-        console.error('Error saving nickname:', error);
+        console.error('Error handling login:', error);
         alert('An error occurred. Please try again.');
         return false;
     }
 }
 
-//login functionality
-function handleLogin() {
-    const username = document.getElementById('loginNickname').value.trim();
-    const password = document.getElementById('loginPassword').value;
 
-    if (!username || !password) {
-        alert('Both username and password are required');
-        return false;
-    }
 
-    const user = JSON.parse(localStorage.getItem(username));
-    if (!user || user.password !== password) {
-        alert('Invalid username or password');
-        return false;
-    }
 
-    localStorage.setItem('loggedInUser', username);
-    window.location.href = 'Settings.html';
-    return true;
-}
+
+
 
 // // // Game Function
 
@@ -488,7 +414,6 @@ function callPopup() {
         startNewGame();
     });
 }
-
 
 // let playOrder = [];
 // let playerInput = [];
