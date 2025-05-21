@@ -12,20 +12,25 @@ body {
     background-color: #DEE7E5;
 }
 
-#anony, #login {
+a {
+    text-decoration: none;
+    text-emphasis: none;
+    color: #DEE7E5;
+}
+
+#anony, #login, #register {
     background-color: #F4EFC8;
     padding: 30px;
     border-radius: 10px;
     width: 75%;
-    height: 78%;
+    height: 80%;
     position: absolute;
     margin-bottom: 20px;
-
+    text-align: center;
 }
 
 #login {
-    text-align: center;
-    display: none;
+    padding-top: 10px; 
 }
 
 .character-section {
@@ -37,6 +42,12 @@ body {
     margin-bottom: 30px;
 }
 
+#register .character-section {
+    gap: 10px;
+    margin-top: -20px; 
+    margin-bottom: 15px;
+}
+
 .title-input {
     display: flex;
     flex-direction: column;
@@ -45,7 +56,11 @@ body {
     gap: 5px;
     font-family: 'Segoe UI';
     font-size: 20px;
-    margin: 30px;
+    margin: 20px;
+}
+
+#register .title-input {
+    margin-top: -5px;  /* Changed from 0 to move higher */
 }
 
 .character {
@@ -53,7 +68,7 @@ body {
    height: 250px; 
    background: #5C0516; 
    border-radius: 50%;
-   margin: 0 50px;
+   margin: 0 60px;
    overflow: hidden;
 }
 
@@ -61,24 +76,32 @@ input {
     padding: 10px;
     border-radius: 15px;
     border: 1px solid #ccc;
-    margin-bottom: 20px;
-    width: 70%;
+    margin-bottom: 5px;
+    width: 75%;
     background-color: #5C0516;
     color: #FFFFFFA3;
     text-align: center;
     font-size: 30px;
     font-family: 'Segoe UI';     
-    margin: 10px auto;
+    margin: 5px auto;
     display: flex;
 }
 
+#register input {
+    margin: 2px auto;  /* Changed from 5px to reduce space between inputs */
+}
+
+.password-input {
+    margin-top: -2px;  /* Added to move password input closer to username */
+}
+
 .login-text {
-    margin: 10px 0;
+    margin: 5px 0;
     font-size: 25px;
     font-family: 'Segoe UI';
     color: black;
     text-align: center;
-    margin-top: 50px; 
+    margin-top: 20px; 
 }
 
 .login-link {
@@ -97,7 +120,7 @@ input {
     padding: 10px;
     border-radius: 30px;
     border: 1px solid #DEE7E5;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     width: 200px;
@@ -109,9 +132,25 @@ input {
     background-color: #0d3b6b;
 }
 
+/*navigation */
+
+
+.nav-frame {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 200px;
+    height: 60px;
+    border: none;
+    overflow: hidden;
+    background: transparent;
+}
+
+
 /* help css */
 #help {
-    display: none;
+    display: block;
 }
 
 #howto {
@@ -215,7 +254,7 @@ img {
 
 /* settings styles */
 #settings {
-    display: none;
+    display: block;
     flex-direction: column;
     align-items: center;
     position: absolute;

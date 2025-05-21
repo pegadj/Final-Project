@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Final Project.css">
+        <title>Register</title>
+    </head>
+    <body>
+        <div id="register">
+            <div class="character-section">
+                <div class="title-input"> 
+                    <h1> Create Account </h1>
+                    <form id="registerForm" onsubmit="event.preventDefault(); return registerUser();">
+                        <input type="text" placeholder="Username" class="nickname-input" id="registerNickname" required>
+                        <input type="password" placeholder="Password" class="password-input" id="registerPassword" required>
+                        <input type="password" placeholder="Confirm Password" class="password-input" id="confirmPassword" required>
+                        <button type="submit" class="continue-button"> Register </button>
+                    </form>
+                </div>
+            </div>
+            <p class="login-text"> Already have an account? <a href="Login.html" class="login-link"> Login </a></p>
+        </div>
+        <script src="Final Project.js"></script>
+    </body>
+</html>
