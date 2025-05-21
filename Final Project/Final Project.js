@@ -98,18 +98,21 @@ const selectColors = document.getElementById("selectColors");
 
 selectLetters.addEventListener("click", () => {
     lettersModeEnabled = !lettersModeEnabled;
+    localStorage.setItem("lettersModeEnabled", lettersModeEnabled);
     console.log("enabled letters")
     updateSelectedCount()
 });
 
 selectNumbers.addEventListener("click", () => {
     numbersModeEnabled = !numbersModeEnabled;
+    localStorage.setItem("numbersModeEnabled", numbersModeEnabled);
     console.log("enabled numbers")
     updateSelectedCount()
 });
 
 selectColors.addEventListener("click", () => {
     colorsModeEnabled = !colorsModeEnabled;
+    localStorage.setItem("colorsModeEnabled", colorsModeEnabled);
     console.log("enabled colors")
     updateSelectedCount()
 });
@@ -125,6 +128,15 @@ function updateSelectedCount() {
 }
 
 // // // Game Function
+document.addEventListener('DOMContentLoaded', function () {
+    lettersModeEnabled = localStorage.getItem("lettersModeEnabled") === "true";
+    numbersModeEnabled = localStorage.getItem("numbersModeEnabled") === "true";
+    colorsModeEnabled = localStorage.getItem("colorsModeEnabled") === "true";
+
+    startNewGame();
+});
+
+
 const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
 const lettersModeRange = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let playOrder = [];
@@ -161,7 +173,6 @@ closePopup.addEventListener("click", () => {
 });
 
 
-startNewGame();
 
 function startNewGame() {
     generateSequence();
@@ -400,11 +411,10 @@ function endGame() {
     console.log("Game Over.");
     callPopup();
     score = 0;
+    saveScore(score);
 }  
 
 // Save score to leaderboard
-saveScore(score);
-// callPopup();
 score = 0;
 
 
