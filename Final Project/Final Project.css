@@ -489,29 +489,22 @@ img {
     margin-top: 85px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
 
 /* === Layout Container === */
 .mainContainer {
-    background-color: #f4efc8;
-    width: 67vw;
-    height: 92vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 5vw;
+    gap: 10vw;
 }
 
 /* === Game Area === */
@@ -523,8 +516,8 @@ img {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    width: 40vw;
-    height: 40vw;
+    width: 35vw;
+    height: 35vw;
     max-width: 650px;
     max-height: 650px;
     position: relative;
@@ -550,8 +543,12 @@ img {
     border: none;
     font-size: min(5vw, 48px);
     font-weight: bold;
-    color: white;
+    color: black;
     border-radius: 1vw;
+}
+.gameBox:active{
+        filter: brightness(350%);
+
 }
 
 /* === Main Input Container === */
@@ -616,6 +613,12 @@ img {
 #submit:active {
     filter: brightness(250%);
 }
+.flash{
+    filter: brightness(250%);
+
+}
+
+
 
 /* ===Color grid=== */
 .colors {
@@ -678,3 +681,14 @@ img {
 #closePopup:active {
     filter: brightness(350%);
 }
+
+
+
+
+
+
+
+
+
+
+
