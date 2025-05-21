@@ -92,29 +92,34 @@ let numbersModeEnabled = false;
 let colorsModeEnabled = false;
 let lettersModeEnabled = false;
 
+document.addEventListener("DOMContentLoaded", () => {    
 const selectLetters = document.getElementById("selectLetters");
 const selectNumbers = document.getElementById("selectNumbers");
 const selectColors = document.getElementById("selectColors");
-
-selectLetters.addEventListener("click", () => {
-    lettersModeEnabled = !lettersModeEnabled;
-    localStorage.setItem("lettersModeEnabled", lettersModeEnabled);
-    console.log("enabled letters")
-    updateSelectedCount()
-});
-
-selectNumbers.addEventListener("click", () => {
-    numbersModeEnabled = !numbersModeEnabled;
-    localStorage.setItem("numbersModeEnabled", numbersModeEnabled);
-    console.log("enabled numbers")
-    updateSelectedCount()
-});
-
-selectColors.addEventListener("click", () => {
-    colorsModeEnabled = !colorsModeEnabled;
-    localStorage.setItem("colorsModeEnabled", colorsModeEnabled);
-    console.log("enabled colors")
-    updateSelectedCount()
+    if(selectLetters){
+        selectLetters.addEventListener("click", () => {
+            lettersModeEnabled = !lettersModeEnabled;
+            localStorage.setItem("lettersModeEnabled", lettersModeEnabled);
+            console.log("enabled letters")
+            updateSelectedCount()
+        });
+    }
+    if(selectNumbers){
+        selectNumbers.addEventListener("click", () => {
+            numbersModeEnabled = !numbersModeEnabled;
+            localStorage.setItem("numbersModeEnabled", numbersModeEnabled);
+            console.log("enabled numbers")
+            updateSelectedCount()
+        });
+    }
+    if(selectColors){
+        selectColors.addEventListener("click", () => {
+            colorsModeEnabled = !colorsModeEnabled;
+            localStorage.setItem("colorsModeEnabled", colorsModeEnabled);
+            console.log("enabled colors")
+            updateSelectedCount()
+        });
+    }
 });
 function updateSelectedCount() {
     const count = [
@@ -167,14 +172,18 @@ const popUp = document.querySelector(".popUp");
 const closePopup = document.getElementById("closePopup");
 const finalScore = document.getElementById("finalScore");
 
-closePopup.addEventListener("click", () => {
-    popUp.style.display = "none";
-    startNewGame();
+if(closePopup){
+    closePopup.addEventListener("click", () => {
+        popUp.style.display = "none";
+        startNewGame();
 });
-
-
+}
 
 function startNewGame() {
+    listenersAttached = false;
+    listenersAttachedColors = false;
+    listenersAttachedLetters = false;
+    listenersAttachedNumbers = false;
     generateSequence();
     currentRound = 1;
     playerInput = [];
@@ -274,6 +283,11 @@ function detectClickSubmit() {
     }
 }
 
+let placeholders = [];
+if (lettersModeEnabled) placeholders.push("Letters");
+if (numbersModeEnabled) placeholders.push("Numbers");
+
+inputField.placeholder = `Enter ${placeholders.join(" & ")} Sequence`;
 
 function checkSequence() {
     if (lettersModePlayerInput.length > currentRound) {
@@ -281,6 +295,12 @@ function checkSequence() {
         endGame();
         return;
     }
+    if (numbersModePlayerInput.length > currentRound) {
+        console.log("Too many inputs! Game Over!");
+        endGame();
+        return;
+    }
+
         for (let i = 0; i < playerInput.length; i++) {
         if (playerInput[i] !== playOrder[i]) {
             console.log("Wrong Number Sequence! Game Over!");
@@ -400,7 +420,6 @@ function callPopup() {
 
 function endGame() {
     playerInput = [];
-    colorsModePlayerInput = [];
     lettersMode = [];
     numbersMode = [];
     colorsModePlayerInput = [];
@@ -410,12 +429,10 @@ function endGame() {
     currentRound = 1;
     console.log("Game Over.");
     callPopup();
-    score = 0;
     saveScore(score);
+    score = 0;
 }  
 
-// Save score to leaderboard
-score = 0;
 
 
 function saveScore(score) {
