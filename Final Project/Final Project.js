@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'Settings.html';
         });
     }
+    if (document.getElementById('ranking')) {
+        updateLeaderboard();
+    }
 });
 
 
@@ -334,10 +337,69 @@ function endGame() {
     lettersModePlayerInput = [];
     currentRound = 1;
     console.log("Game Over.");
+
+    // Save score to leaderboard
+    saveScore(score);
     callPopup();
     score = 0;
 }   
 
+function saveScore(score) {
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) return;
+
+    // Get existing leaderboard or create new one
+    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    
+    // Find if user already has a score
+    const existingUserIndex = leaderboard.findIndex(entry => entry.nickname === currentUser);
+    
+    //update score
+    if (existingUserIndex !== -1) {
+        if (score > leaderboard[existingUserIndex].score) {
+            leaderboard[existingUserIndex].score = score;
+            leaderboard[existingUserIndex].timestamp = Date.now();
+        }
+    } else {
+        leaderboard.push({
+            nickname: currentUser,
+            score: score,
+            timestamp: Date.now()
+        });
+    }
+
+    leaderboard.sort((a, b) => b.score - a.score);
+    
+    // only top 10 scores
+    leaderboard = leaderboard.slice(0, 10);
+    
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    
+    updateLeaderboard();
+}
+
+function updateLeaderboard() {
+    const rankingDiv = document.getElementById('ranking');
+    if (!rankingDiv) return;
+
+    // Get leaderboard data
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    
+    // Clear current leaderboard
+    rankingDiv.innerHTML = '';
+    
+    // Add each score to the leaderboard
+    leaderboard.forEach((entry, index) => {
+        const scoreElement = document.createElement('div');
+        scoreElement.className = 'score-entry';
+        scoreElement.innerHTML = `
+            <span class="rank">${index + 1}</span>
+            <span class="user">${entry.nickname}</span>
+            <span class="score">${entry.score}</span>
+        `;
+        rankingDiv.appendChild(scoreElement);
+    });
+}
 
 function playSequenceAnimation(currentRound) {
     const baseDelay = 1000;

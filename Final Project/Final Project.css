@@ -445,15 +445,73 @@ img {
 .start-button:hover {
     background-color: #0d3b6b;
 }
+
+/*LEADERBOARD*/
+.score-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 260px;
+    padding: 10px;
+    margin: 5px 0px;
+    background-color: #5C0516;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Segoe UI';
+}
+
+.rank {
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.user {
+    flex-grow: 1;
+    text-align: left;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.score {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#ranking {
+    margin: 5px -277px;
+    max-height: 550px;
+    width: 280px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #F4EFC8;
+    border-radius: 5px;
+    margin-top: 85px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* === Layout Container === */
 .mainContainer {
     background-color: #f4efc8;
+    width: 67vw;
+    height: 92vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 10vw;
+    gap: 5vw;
 }
 
 /* === Game Area === */
@@ -465,8 +523,8 @@ img {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    width: 45vw;
-    height: 45vw;
+    width: 40vw;
+    height: 40vw;
     max-width: 650px;
     max-height: 650px;
     position: relative;
