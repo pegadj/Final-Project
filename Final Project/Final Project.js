@@ -87,23 +87,55 @@ function handleAnonymousLogin() {
     }
 }
 
-// // // Game Function
-let playOrder = [];
-let playerInput = [];
-
-let numbersMode = [];
-let numbersModePlayerInput = [];
-let numbersModeEnabled = true;
-
-const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
-let colorsMode = [];
-let colorsModePlayerInput = [];
-let colorsModeEnabled = true;
-
-const lettersModeRange = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let lettersMode = [];
-let lettersModePlayerInput = [];
+// //game mode selector
+let numbersModeEnabled = false;
+let colorsModeEnabled = false;
 let lettersModeEnabled = false;
+
+const selectLetters = document.getElementById("selectLetters");
+const selectNumbers = document.getElementById("selectNumbers");
+const selectColors = document.getElementById("selectColors");
+
+selectLetters.addEventListener("click", () => {
+    lettersModeEnabled = !lettersModeEnabled;
+    console.log("enabled letters")
+    updateSelectedCount()
+});
+
+selectNumbers.addEventListener("click", () => {
+    numbersModeEnabled = !numbersModeEnabled;
+    console.log("enabled numbers")
+    updateSelectedCount()
+});
+
+selectColors.addEventListener("click", () => {
+    colorsModeEnabled = !colorsModeEnabled;
+    console.log("enabled colors")
+    updateSelectedCount()
+});
+function updateSelectedCount() {
+    const count = [
+        lettersModeEnabled,
+        numbersModeEnabled,
+        colorsModeEnabled
+    ].filter(Boolean).length;
+
+    console.log("Count is:", count);
+    document.getElementById("count").textContent = count;
+}
+
+// // // Game Function
+const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
+const lettersModeRange = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let playOrder = [];
+let numbersMode = [];
+let colorsMode = [];
+let lettersMode = [];
+
+let playerInput = [];
+let numbersModePlayerInput = [];
+let colorsModePlayerInput = [];
+let lettersModePlayerInput = [];
 
 let currentRound = 1;
 let score = 0;
@@ -137,6 +169,7 @@ function startNewGame() {
     playerInput = [];
     console.log("Game Start");
     playSequenceAnimations(currentRound);
+    console.log("modes enabled",colorsModeEnabled,lettersModeEnabled,numbersModeEnabled)
 }
 
 function generateSequence() {
@@ -367,7 +400,7 @@ function endGame() {
     console.log("Game Over.");
     callPopup();
     score = 0;
-}   
+}  
 
 // Save score to leaderboard
 saveScore(score);
