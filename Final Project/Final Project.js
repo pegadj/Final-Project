@@ -189,10 +189,12 @@ let score = 0;
 
 let listenersAttached = false;
 let listenersAttachedColors = false;
-let listenersAttachedLetters = false;
-let listenersAttachedNumbers = false;
+let submitListenerAttached = false;
+let isAnimating = false;
 
 let placeholders = [];
+
+let toClick = new Audio("./Toom Click.wav");
 
 const gameButton = document.querySelectorAll(".gameBox");
 const colors = document.querySelectorAll(".color");
@@ -206,6 +208,7 @@ function startNewGame() {
     numbersModePlayerInput = [];
     colorsModePlayerInput = [];
     lettersModePlayerInput = [];
+    placeholders = [];
     console.log("Game Start");
     playSequenceAnimations(currentRound);
     console.log("modes enabled",colorsModeEnabled,lettersModeEnabled,numbersModeEnabled)
@@ -253,6 +256,7 @@ function detectClick() {
     if (listenersAttached) return;
     gameButton.forEach((button) => {
         button.addEventListener("click", (event) => {
+            if (isAnimating) return;
             const userClick = Number(event.target.id);
             playerInput.push(userClick);
             console.log("User Clicked (number):", userClick);
@@ -267,6 +271,7 @@ function detectClickColors(){
     if (listenersAttachedColors) return;
     colors.forEach((button) => {
         button.addEventListener("click", (event) => { 
+            if (isAnimating) return;
             const userClick = event.target.id;
             colorsModePlayerInput.push(userClick);
             console.log("User Clicked (color):", userClick);
@@ -277,36 +282,11 @@ function detectClickColors(){
     listenersAttachedColors = true;
 }
 
-// function detectClickSubmit() {
-//     if (listenersAttachedLetters || listenersAttachedNumbers) return;
-
-//     submitButton.addEventListener("click", () => {
-//         const userInput = inputField.value.trim().toUpperCase();
-//         inputField.value = ""; 
-//         if (lettersModeEnabled) {
-//             lettersModePlayerInput = userInput.split("");
-//             console.log("Letter Input:", lettersModePlayerInput);
-//         }
-//         if (numbersModeEnabled) {
-//             numbersModePlayerInput = userInput.split("").map(Number); 
-//             console.log("Number Input:", numbersModePlayerInput);
-//         }
-//         checkSequence();
-//     });
-
-//     if (lettersModeEnabled) {
-//         listenersAttachedLetters = true;
-//         }
-//     if (numbersModeEnabled) {
-//         listenersAttachedNumbers = true;
-//     }
-// }
-let submitListenerAttached = false;
-
 function detectClickSubmit() {
     if (submitListenerAttached) return;
-        if(submitButton){
+    if(submitButton){
         submitButton.addEventListener("click", () => {
+            if (isAnimating) return;
             const userInput = inputField.value.trim().toUpperCase();
             inputField.value = ""; 
             if (lettersModeEnabled) {
@@ -403,6 +383,7 @@ function checkSequence() {
 }
 
 function playSequenceAnimations(currentRound) {
+    isAnimating = true;
     const baseDelay = 1000;
     const stepDelay = 800;
 
@@ -439,9 +420,14 @@ function playSequenceAnimations(currentRound) {
                 button.style.backgroundColor = originalBg;
                 button.textContent = originalText;
 
+            if (i === currentRound - 1) {
+                    isAnimating = false;
+            }
+
             }, 500);
 
         }, baseDelay + i * stepDelay);
+        
     }
 }
 
