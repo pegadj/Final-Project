@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-body {
+body.home {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -492,6 +492,10 @@ img {
 * {
     box-sizing: border-box;
 }
+
+* {
+    box-sizing: border-box;
+}
 body{
     margin: 0;
     padding: 0;
@@ -681,8 +685,6 @@ body{
 #closePopup:active {
     filter: brightness(350%);
 }
-
-
 
 
 

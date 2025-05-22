@@ -8,7 +8,6 @@ body{
 
 /* === Layout Container === */
 .mainContainer {
-    background-color: #f4efc8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,8 +25,8 @@ body{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    width: 45vw;
-    height: 45vw;
+    width: 35vw;
+    height: 35vw;
     max-width: 650px;
     max-height: 650px;
     position: relative;
@@ -55,6 +54,10 @@ body{
     font-weight: bold;
     color: black;
     border-radius: 1vw;
+}
+.gameBox:active{
+        filter: brightness(350%);
+
 }
 
 /* === Main Input Container === */
@@ -119,6 +122,12 @@ body{
 #submit:active {
     filter: brightness(250%);
 }
+.flash{
+    filter: brightness(250%);
+
+}
+
+
 
 /* ===Color grid=== */
 .colors {
