@@ -93,9 +93,26 @@ let colorsModeEnabled = false;
 let lettersModeEnabled = false;
 
 document.addEventListener("DOMContentLoaded", () => {    
-const selectLetters = document.getElementById("selectLetters");
-const selectNumbers = document.getElementById("selectNumbers");
-const selectColors = document.getElementById("selectColors");
+    const selectLetters = document.getElementById("selectLetters");
+    const selectNumbers = document.getElementById("selectNumbers");
+    const selectColors = document.getElementById("selectColors");
+    
+    lettersModeEnabled = localStorage.getItem("lettersModeEnabled") === "true";
+    numbersModeEnabled = localStorage.getItem("numbersModeEnabled") === "true";
+    colorsModeEnabled = localStorage.getItem("colorsModeEnabled") === "true";
+
+    const closePopup = document.getElementById("closePopup");
+    if(closePopup){
+        closePopup.addEventListener("click", () => {
+            const popUp = document.querySelector(".popUp");
+            popUp.style.display = "none";
+            startNewGame();
+        });
+    }
+    detectClick()
+    detectClickColors()
+    detectClickSubmit()
+    
     if(selectLetters){
         selectLetters.addEventListener("click", () => {
             lettersModeEnabled = !lettersModeEnabled;
@@ -120,6 +137,7 @@ const selectColors = document.getElementById("selectColors");
             updateSelectedCount()
         });
     }
+    startNewGame()
 });
 function updateSelectedCount() {
     const count = [
@@ -133,14 +151,6 @@ function updateSelectedCount() {
 }
 
 // // // Game Function
-document.addEventListener('DOMContentLoaded', function () {
-    lettersModeEnabled = localStorage.getItem("lettersModeEnabled") === "true";
-    numbersModeEnabled = localStorage.getItem("numbersModeEnabled") === "true";
-    colorsModeEnabled = localStorage.getItem("colorsModeEnabled") === "true";
-
-    startNewGame();
-});
-
 
 const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
 const lettersModeRange = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -162,34 +172,26 @@ let listenersAttachedColors = false;
 let listenersAttachedLetters = false;
 let listenersAttachedNumbers = false;
 
+let placeholders = [];
 
 const gameButton = document.querySelectorAll(".gameBox");
 const colors = document.querySelectorAll(".color");
 const submitButton = document.querySelector("#submit");
 const inputField = document.querySelector("#inputField");
 
-const popUp = document.querySelector(".popUp");
-const closePopup = document.getElementById("closePopup");
-const finalScore = document.getElementById("finalScore");
-
-if(closePopup){
-    closePopup.addEventListener("click", () => {
-        popUp.style.display = "none";
-        startNewGame();
-});
-}
-
 function startNewGame() {
-    listenersAttached = false;
-    listenersAttachedColors = false;
-    listenersAttachedLetters = false;
-    listenersAttachedNumbers = false;
     generateSequence();
     currentRound = 1;
     playerInput = [];
+    numbersModePlayerInput = [];
+    colorsModePlayerInput = [];
+    lettersModePlayerInput = [];
     console.log("Game Start");
     playSequenceAnimations(currentRound);
     console.log("modes enabled",colorsModeEnabled,lettersModeEnabled,numbersModeEnabled)
+    if (lettersModeEnabled) placeholders.push("Letters");
+    if (numbersModeEnabled) placeholders.push("Numbers");
+    inputField.placeholder = `Enter ${placeholders.join(" & ")} Sequence`;
 }
 
 function generateSequence() {
@@ -203,14 +205,12 @@ function generateSequence() {
             const randomColor = colorsModeColorRange[Math.floor(Math.random() * colorsModeColorRange.length)];
             colorsMode.push(randomColor); 
         }
-        detectClickColors();
     }
     if (numbersModeEnabled) {
         numbersMode = [];
         for (let i = 0; i < 20; i++) {
             numbersMode.push(Math.floor(Math.random() * 9)+1);
         }
-        detectClickSubmit();
     }
     if (lettersModeEnabled) {
         lettersMode = [];
@@ -218,13 +218,11 @@ function generateSequence() {
             const randomLetter = lettersModeRange[Math.floor(Math.random() * lettersModeRange.length)];
             lettersMode.push(randomLetter);
         }
-        detectClickSubmit();
     }
         console.log(lettersMode);
         console.log(numbersMode)
         console.log(colorsMode);
         console.log(playOrder);
-        detectClick();
     }
 
 
@@ -256,38 +254,51 @@ function detectClickColors(){
     listenersAttachedColors = true;
 }
 
+// function detectClickSubmit() {
+//     if (listenersAttachedLetters || listenersAttachedNumbers) return;
+
+//     submitButton.addEventListener("click", () => {
+//         const userInput = inputField.value.trim().toUpperCase();
+//         inputField.value = ""; 
+//         if (lettersModeEnabled) {
+//             lettersModePlayerInput = userInput.split("");
+//             console.log("Letter Input:", lettersModePlayerInput);
+//         }
+//         if (numbersModeEnabled) {
+//             numbersModePlayerInput = userInput.split("").map(Number); 
+//             console.log("Number Input:", numbersModePlayerInput);
+//         }
+//         checkSequence();
+//     });
+
+//     if (lettersModeEnabled) {
+//         listenersAttachedLetters = true;
+//         }
+//     if (numbersModeEnabled) {
+//         listenersAttachedNumbers = true;
+//     }
+// }
+let submitListenerAttached = false;
+
 function detectClickSubmit() {
-    if (listenersAttachedLetters || listenersAttachedNumbers) return;
-
-    submitButton.addEventListener("click", () => {
-        const userInput = inputField.value.trim().toUpperCase();
-        inputField.value = ""; 
-        if (lettersModeEnabled) {
-            lettersModePlayerInput = userInput.split("");
-            console.log("Letter Input:", lettersModePlayerInput);
-        }
-        if (numbersModeEnabled) {
-            numbersModePlayerInput = userInput.split("").map(Number); 
-            console.log("Number Input:", numbersModePlayerInput);
-        }
-        checkSequence();
-    });
-
-    if (lettersModeEnabled) {
-        listenersAttachedLetters = true;
-        document.getElementById("inputField").placeholder = "Enter Letter Sequence";
-        }
-    if (numbersModeEnabled) {
-        listenersAttachedNumbers = true;
-        document.getElementById("inputField").placeholder = "Enter Number Sequence";
+    if (submitListenerAttached) return;
+        if(submitButton){
+        submitButton.addEventListener("click", () => {
+            const userInput = inputField.value.trim().toUpperCase();
+            inputField.value = ""; 
+            if (lettersModeEnabled) {
+                lettersModePlayerInput = userInput.split("");
+                console.log("Letter Input:", lettersModePlayerInput);
+            }
+            if (numbersModeEnabled) {
+                numbersModePlayerInput = userInput.split("").map(Number); 
+                console.log("Number Input:", numbersModePlayerInput);
+            }
+            checkSequence();
+        });
     }
+    submitListenerAttached = true;
 }
-
-let placeholders = [];
-if (lettersModeEnabled) placeholders.push("Letters");
-if (numbersModeEnabled) placeholders.push("Numbers");
-
-inputField.placeholder = `Enter ${placeholders.join(" & ")} Sequence`;
 
 function checkSequence() {
     if (lettersModePlayerInput.length > currentRound) {
@@ -363,7 +374,7 @@ function checkSequence() {
         colorsModePlayerInput = [];
         lettersModePlayerInput = [];
         numbersModePlayerInput = [];
-        score+=4
+        // score+=4
         playSequenceAnimations(currentRound);
     }
 }
@@ -377,11 +388,12 @@ function playSequenceAnimations(currentRound) {
             const button = document.getElementById(playOrder[i]);
 
             // Save original styles
+        
             const originalBg = button.style.backgroundColor;
-            const originalText = button.textContent;
-
+            const originalText = button.textContent;    
             // FLASH effect
             button.classList.add("flash");
+            
 
             // COLORS MODE 
             if (colorsModeEnabled) {
@@ -413,10 +425,6 @@ function playSequenceAnimations(currentRound) {
     }
 }
 
-function callPopup() {
-    popUp.style.display = "flex";
-    finalScore.textContent = score;
-}
 
 function endGame() {
     playerInput = [];
@@ -432,6 +440,13 @@ function endGame() {
     saveScore(score);
     score = 0;
 }  
+function callPopup() {
+    const popUp = document.querySelector(".popUp");
+    const finalScore = document.getElementById("finalScore");
+
+    popUp.style.display = "flex";
+    finalScore.textContent = score;
+}
 
 
 
