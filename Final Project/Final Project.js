@@ -12,7 +12,24 @@ class Player {
     }
 }
 
-
+function deleteStoredData() {
+    try {
+        // Clear all data from localStorage
+        localStorage.removeItem('guestNickname');
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('leaderboard');
+        
+        // Clear the ranking display if it exists
+        const rankingDiv = document.getElementById('ranking');
+        if (rankingDiv) {
+            rankingDiv.innerHTML = '';
+        }
+        
+        console.log('All stored data has been deleted');
+    } catch (error) {
+        console.error('Error deleting stored data:', error);
+    }
+}
 
 // Avatar
 const style = "bottts";
@@ -99,6 +116,7 @@ const selectColors = document.getElementById("selectColors");
     if(selectLetters){
         selectLetters.addEventListener("click", () => {
             lettersModeEnabled = !lettersModeEnabled;
+            selectLetters.classList.toggle('selected', lettersModeEnabled);
             localStorage.setItem("lettersModeEnabled", lettersModeEnabled);
             console.log("enabled letters")
             updateSelectedCount()
@@ -107,6 +125,7 @@ const selectColors = document.getElementById("selectColors");
     if(selectNumbers){
         selectNumbers.addEventListener("click", () => {
             numbersModeEnabled = !numbersModeEnabled;
+                        selectNumbers.classList.toggle('selected', numbersModeEnabled);
             localStorage.setItem("numbersModeEnabled", numbersModeEnabled);
             console.log("enabled numbers")
             updateSelectedCount()
@@ -115,6 +134,7 @@ const selectColors = document.getElementById("selectColors");
     if(selectColors){
         selectColors.addEventListener("click", () => {
             colorsModeEnabled = !colorsModeEnabled;
+            selectColors.classList.toggle('selected', colorsModeEnabled);
             localStorage.setItem("colorsModeEnabled", colorsModeEnabled);
             console.log("enabled colors")
             updateSelectedCount()

@@ -2,13 +2,17 @@
     box-sizing: border-box;
 }
 
-body.home,.howtoplay{
+body.home,.howtoplay, .setting {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 0;
     height: 100vh;
+    background-color: #DEE7E5;
+}
+
+.mainGame {
     background-color: #DEE7E5;
 }
 
@@ -358,20 +362,19 @@ img {
     height: 330px;
     cursor: pointer;
     transform: scale(1);
-    transition: all 0.3s ease-in-out;
-    box-shadow: none;
+    transition: transform 0.3s ease-in-out;
 }
 
 #modes button.selected {
-    transform: scale(1.05);  /* Enlarged state */
+    transform: scale(1.05); 
     background-color: #8b0b27;
-    box-shadow: 0 0 15px rgba(222, 231, 229, 0.5);
-    border: 2px solid #DEE7E5;
+    box-shadow: 0 0 15px #6b3742cc;
+    border: 2px solid #6b3541e3;
 }
 
 #modes button:hover:not(.selected) {
-    background-color: #8b0b27;
     transform: scale(1.02);
+    background-color: #8b0b27;
     box-shadow: 0 0 10px #2b020a;
 }
 
@@ -386,8 +389,8 @@ img {
 }
 
 .cell {
-    width: 53px; 
-    height: 53px; 
+    width: 80px; 
+    height: 80px; 
     position: absolute; 
     margin: 0;
     padding: 0;
@@ -518,6 +521,7 @@ body{
     font-weight: bold;
     color: black;
     border-radius: 1vw;
+    cursor: pointer;
 }
 .gameBox:active{
         filter: brightness(350%);
@@ -607,6 +611,7 @@ body{
     aspect-ratio: 1 / 1; 
     border: 2px solid black;
     border-radius: 10%;
+    cursor: pointer;
 }
 
 #red { background-color: red }
@@ -645,6 +650,7 @@ body{
     border-radius: 5px;
     padding: 10px;
     font-size: clamp(14px, 1.5vw, 20px);
+    cursor: pointer;
 }
 
 #closePopup:hover {
