@@ -211,7 +211,10 @@ function startNewGame() {
     console.log("modes enabled",colorsModeEnabled,lettersModeEnabled,numbersModeEnabled)
     if (lettersModeEnabled) placeholders.push("Letters");
     if (numbersModeEnabled) placeholders.push("Numbers");
-    inputField.placeholder = `Enter ${placeholders.join(" & ")} Sequence`;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        inputField.placeholder = `Enter ${placeholders.join(" & ")} Sequence`;
+    });
 }
 
 function generateSequence() {
@@ -407,13 +410,10 @@ function playSequenceAnimations(currentRound) {
         setTimeout(() => {
             const button = document.getElementById(playOrder[i]);
 
-            // Save original styles
-        
-            const originalBg = button.style.backgroundColor;
-            const originalText = button.textContent;    
-            // FLASH effect
-            button.classList.add("flash");
-            
+            // Save original styles & display flash effect
+                const originalBg = button.style.backgroundColor;
+                const originalText = button.textContent;    
+                button.classList.add("flash");
 
             // COLORS MODE 
             if (colorsModeEnabled) {
