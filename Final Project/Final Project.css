@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-body.home {
+body.home,.howtoplay{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -503,6 +503,7 @@ body{
 
 /* === Layout Container === */
 .mainContainer {
+    margin-top: 15vh;
     display: flex;
     align-items: center;
     justify-content: center;
