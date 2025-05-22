@@ -195,6 +195,8 @@ let isAnimating = false;
 let placeholders = [];
 
 let toClick = new Audio("./Toom Click.wav");
+let click = new Audio("./user click.mp3")
+let inputClick = new Audio("./input click.mp3")
 
 const gameButton = document.querySelectorAll(".gameBox");
 const colors = document.querySelectorAll(".color");
@@ -257,6 +259,8 @@ function detectClick() {
     gameButton.forEach((button) => {
         button.addEventListener("click", (event) => {
             if (isAnimating) return;
+            click.currentTime = 0;
+            click.play();
             const userClick = Number(event.target.id);
             playerInput.push(userClick);
             console.log("User Clicked (number):", userClick);
@@ -272,6 +276,8 @@ function detectClickColors(){
     colors.forEach((button) => {
         button.addEventListener("click", (event) => { 
             if (isAnimating) return;
+            inputClick.currentTime = 0;
+            inputClick.play();
             const userClick = event.target.id;
             colorsModePlayerInput.push(userClick);
             console.log("User Clicked (color):", userClick);
@@ -287,6 +293,8 @@ function detectClickSubmit() {
     if(submitButton){
         submitButton.addEventListener("click", () => {
             if (isAnimating) return;
+            inputClick.currentTime = 0;
+            inputClick.play();
             const userInput = inputField.value.trim().toUpperCase();
             inputField.value = ""; 
             if (lettersModeEnabled) {
@@ -395,6 +403,9 @@ function playSequenceAnimations(currentRound) {
                 const originalBg = button.style.backgroundColor;
                 const originalText = button.textContent;    
                 button.classList.add("flash");
+                toClick.currentTime = 0;
+                toClick.play();
+
 
             // COLORS MODE 
             if (colorsModeEnabled) {
