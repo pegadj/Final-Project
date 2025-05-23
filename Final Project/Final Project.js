@@ -175,7 +175,6 @@ function updateSelectedCount() {
         localStorage.setItem("lettersModeEnabled", "false");
         localStorage.setItem("numbersModeEnabled", "false");
         localStorage.setItem("colorsModeEnabled", "false");
-            console.log("this loaded")
         }
     });
 // // Game Function
