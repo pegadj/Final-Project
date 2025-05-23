@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (helpContinueBtn) {
         helpContinueBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'Settings.html';
+            window.location.href = 'Home.html';
         });
     }
     if (document.getElementById('ranking')) {
@@ -95,7 +95,7 @@ function handleAnonymousLogin() {
         localStorage.setItem('currentUser', nickname);
         
         // Navigate to settings
-        window.location.href = 'Settings.html';
+        window.location.href = 'Home.html';
         return true;
     } catch (error) {
         console.error('Error handling login:', error);

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (helpContinueBtn) {
         helpContinueBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'Settings.html';
+            window.location.href = 'Home.html';
         });
     }
 });
@@ -116,7 +116,7 @@ function registerUser() {
   localStorage.setItem('loggedInUser', username);
   
   alert('Registration successful! Redirecting to settings...');
-  window.location.href = 'Settings.html';
+  window.location.href = 'Home.html';
   return true;
 }
 
@@ -134,7 +134,7 @@ function handleAnonymousLogin() {
 
     try {
         localStorage.setItem('guestNickname', nickname);
-        window.location.href = 'Settings.html';
+        window.location.href = 'Home.html';
         return true;
     } catch (error) {
         console.error('Error saving nickname:', error);
@@ -160,7 +160,7 @@ function handleLogin() {
     }
 
     localStorage.setItem('loggedInUser', username);
-    window.location.href = 'Settings.html';
+    window.location.href = 'Home.html';
     return true;
 }
 
