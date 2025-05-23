@@ -169,8 +169,16 @@ function updateSelectedCount() {
     console.log("Count is:", count);
     document.getElementById("count").textContent = count;
 }
-
-// // // Game Function
+// this should reset the mode selection
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.location.pathname.endsWith('Home.html')) {
+        localStorage.setItem("lettersModeEnabled", "false");
+        localStorage.setItem("numbersModeEnabled", "false");
+        localStorage.setItem("colorsModeEnabled", "false");
+            console.log("this loaded")
+        }
+    });
+// // Game Function
 
 const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
 const lettersModeRange = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
