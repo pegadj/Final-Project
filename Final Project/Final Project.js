@@ -385,13 +385,12 @@ function checkSequence() {
         colorsModePlayerInput = [];
         lettersModePlayerInput = [];
         numbersModePlayerInput = [];
-        // score+=4
         playSequenceAnimations(currentRound);
     }
 }
 
 function playSequenceAnimations(currentRound) {
-    isAnimating = true;
+    isAnimating = true; 
     const baseDelay = 1000;
     const stepDelay = 800;
 
@@ -445,12 +444,12 @@ function playSequenceAnimations(currentRound) {
 
 function endGame() {
     playerInput = [];
+    colorsMode = [];
     lettersMode = [];
     numbersMode = [];
     colorsModePlayerInput = [];
     lettersModePlayerInput = [];
     numbersModePlayerInput = [];
-    colorsMode = [];
     currentRound = 1;
     console.log("Game Over.");
     callPopup();
