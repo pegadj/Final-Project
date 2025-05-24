@@ -378,15 +378,6 @@ img {
     box-shadow: 0 0 10px #2b020a;
 }
 
-#modes button:disabled {
-    pointer-events: none;
-}
-
-.start-button:disabled {
-    pointer-events: none;
-    background-color: #666;
-}
-
 .grid {
     width: 175x; 
     height: 175px; 

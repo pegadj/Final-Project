@@ -130,29 +130,26 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if(selectLetters){
         selectLetters.addEventListener("click", () => {
+            lastSelectedMode = 'letters';
             lettersModeEnabled = !lettersModeEnabled;
             selectLetters.classList.toggle('selected', lettersModeEnabled);
-            localStorage.setItem("lettersModeEnabled", lettersModeEnabled);
-            console.log("enabled letters")
-            updateSelectedCount()
+            updateSelectedCount();
         });
     }
     if(selectNumbers){
         selectNumbers.addEventListener("click", () => {
+            lastSelectedMode = 'numbers';
             numbersModeEnabled = !numbersModeEnabled;
-                        selectNumbers.classList.toggle('selected', numbersModeEnabled);
-            localStorage.setItem("numbersModeEnabled", numbersModeEnabled);
-            console.log("enabled numbers")
-            updateSelectedCount()
+            selectNumbers.classList.toggle('selected', numbersModeEnabled);
+            updateSelectedCount();
         });
     }
     if(selectColors){
         selectColors.addEventListener("click", () => {
+            lastSelectedMode = 'colors';
             colorsModeEnabled = !colorsModeEnabled;
             selectColors.classList.toggle('selected', colorsModeEnabled);
-            localStorage.setItem("colorsModeEnabled", colorsModeEnabled);
-            console.log("enabled colors")
-            updateSelectedCount()
+            updateSelectedCount();
         });
     }
     startNewGame()
@@ -170,37 +167,23 @@ function updateSelectedCount() {
     const colorsBtn = document.getElementById("selectColors");
     const startBtn = document.querySelector(".start-button");
 
-    // Disable incompatible selections
-    if (lettersModeEnabled) {
-        numbersBtn.disabled = true;
-        numbersBtn.style.opacity = "0.5";
-        numbersBtn.style.cursor = "not-allowed";
-    } else if (numbersModeEnabled) {
-        lettersBtn.disabled = true;
-        lettersBtn.style.opacity = "0.5";
-        lettersBtn.style.cursor = "not-allowed";
-    } else {
-        lettersBtn.disabled = false;
-        numbersBtn.disabled = false;
-        lettersBtn.style.opacity = "1";
-        numbersBtn.style.opacity = "1";
-        lettersBtn.style.cursor = "pointer";
-        numbersBtn.style.cursor = "pointer";
+    // Handle letters and numbers incompatibility
+    if (lettersModeEnabled && numbersModeEnabled) {
+        // If user tries to select both, disable the last selection
+        if (lastSelectedMode === 'letters') {
+            lettersModeEnabled = false;
+            lettersBtn.classList.remove('selected');
+            alert("You cannot select both Letters and Numbers modes!");
+        } else {
+            numbersModeEnabled = false;
+            numbersBtn.classList.remove('selected');
+            alert("You cannot select both Letters and Numbers modes!");
+        }
     }
 
-    // Prevent selecting all three modes
-    if (count >= 2) {
-        if (!lettersModeEnabled) lettersBtn.disabled = true;
-        if (!numbersModeEnabled) numbersBtn.disabled = true;
-        if (!colorsModeEnabled) colorsBtn.disabled = true;
-
-        [lettersBtn, numbersBtn, colorsBtn].forEach(btn => {
-            if (btn.disabled) {
-                btn.style.opacity = "0.5";
-                btn.style.cursor = "not-allowed";
-            }
-        });
-    }
+    localStorage.setItem("lettersModeEnabled", lettersModeEnabled);
+    localStorage.setItem("numbersModeEnabled", numbersModeEnabled);
+    localStorage.setItem("colorsModeEnabled", colorsModeEnabled);
 
     // Enable/disable start button based on selection
     if (count === 0) {
@@ -216,18 +199,8 @@ function updateSelectedCount() {
     console.log("Count is:", count);
     document.getElementById("count").textContent = count;
 }
-// this should reset the mode selection
-    document.addEventListener('DOMContentLoaded', function () {
-        if (window.location.pathname.endsWith('Home.html')) {
-        localStorage.setItem("lettersModeEnabled", "false");
-        localStorage.setItem("numbersModeEnabled", "false");
-        localStorage.setItem("colorsModeEnabled", "false");
-        }
-    });
-
 
 // // Game Function
-
 const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
 const lettersModeRange = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let playOrder = [];
@@ -253,6 +226,8 @@ let placeholders = [];
 let toClick = new Audio("./Toom Click.wav");
 let click = new Audio("./user click.mp3")
 let inputClick = new Audio("./input click.mp3")
+
+let lastSelectedMode = '';
 
 const gameButton = document.querySelectorAll(".gameBox");
 const colors = document.querySelectorAll(".color");
