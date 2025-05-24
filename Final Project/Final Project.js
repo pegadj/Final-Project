@@ -14,12 +14,10 @@ class Player {
 
 function deleteStoredData() {
     try {
-        // Clear all data from localStorage
         localStorage.removeItem('guestNickname');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('leaderboard');
         
-        // Clear the ranking display if it exists
         const rankingDiv = document.getElementById('ranking');
         if (rankingDiv) {
             rankingDiv.innerHTML = '';
@@ -95,7 +93,7 @@ function handleAnonymousLogin() {
         localStorage.setItem('currentUser', nickname);
         
         // Navigate to settings
-        window.location.href = 'Home.html';
+        window.location.href = 'Help.html';
         return true;
     } catch (error) {
         console.error('Error handling login:', error);
@@ -166,6 +164,55 @@ function updateSelectedCount() {
         colorsModeEnabled
     ].filter(Boolean).length;
 
+    // Get references to mode buttons
+    const lettersBtn = document.getElementById("selectLetters");
+    const numbersBtn = document.getElementById("selectNumbers");
+    const colorsBtn = document.getElementById("selectColors");
+    const startBtn = document.querySelector(".start-button");
+
+    // Disable incompatible selections
+    if (lettersModeEnabled) {
+        numbersBtn.disabled = true;
+        numbersBtn.style.opacity = "0.5";
+        numbersBtn.style.cursor = "not-allowed";
+    } else if (numbersModeEnabled) {
+        lettersBtn.disabled = true;
+        lettersBtn.style.opacity = "0.5";
+        lettersBtn.style.cursor = "not-allowed";
+    } else {
+        lettersBtn.disabled = false;
+        numbersBtn.disabled = false;
+        lettersBtn.style.opacity = "1";
+        numbersBtn.style.opacity = "1";
+        lettersBtn.style.cursor = "pointer";
+        numbersBtn.style.cursor = "pointer";
+    }
+
+    // Prevent selecting all three modes
+    if (count >= 2) {
+        if (!lettersModeEnabled) lettersBtn.disabled = true;
+        if (!numbersModeEnabled) numbersBtn.disabled = true;
+        if (!colorsModeEnabled) colorsBtn.disabled = true;
+
+        [lettersBtn, numbersBtn, colorsBtn].forEach(btn => {
+            if (btn.disabled) {
+                btn.style.opacity = "0.5";
+                btn.style.cursor = "not-allowed";
+            }
+        });
+    }
+
+    // Enable/disable start button based on selection
+    if (count === 0) {
+        startBtn.disabled = true;
+        startBtn.style.opacity = "0.5";
+        startBtn.style.cursor = "not-allowed";
+    } else {
+        startBtn.disabled = false;
+        startBtn.style.opacity = "1";
+        startBtn.style.cursor = "pointer";
+    }
+
     console.log("Count is:", count);
     document.getElementById("count").textContent = count;
 }
@@ -177,6 +224,8 @@ function updateSelectedCount() {
         localStorage.setItem("colorsModeEnabled", "false");
         }
     });
+
+
 // // Game Function
 
 const colorsModeColorRange = ["red", "lime", "blue", "yellow"];
@@ -477,13 +526,10 @@ function saveScore(score) {
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) return;
     
-    // Get existing leaderboard or create new one
     let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
     
-    // Find if user already has a score
     const existingUserIndex = leaderboard.findIndex(entry => entry.nickname === currentUser);
-    
-    //update score
+
     if (existingUserIndex !== -1) {
         if (score > leaderboard[existingUserIndex].score) {
             leaderboard[existingUserIndex].score = score;
@@ -499,7 +545,6 @@ function saveScore(score) {
 
     leaderboard.sort((a, b) => b.score - a.score);
     
-    // only top 10 scores
     leaderboard = leaderboard.slice(0, 10);
     
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
@@ -511,13 +556,10 @@ function updateLeaderboard() {
     const rankingDiv = document.getElementById('ranking');
     if (!rankingDiv) return;
 
-    // Get leaderboard data
     const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
     
-    // Clear current leaderboard
     rankingDiv.innerHTML = '';
-    
-    // Add each score to the leaderboard
+
     leaderboard.forEach((entry, index) => {
         const scoreElement = document.createElement('div');
         scoreElement.className = 'score-entry';
@@ -529,3 +571,35 @@ function updateLeaderboard() {
         rankingDiv.appendChild(scoreElement);
     });
 }
+
+//function to reset game modes
+function resetGameModes() {
+    localStorage.setItem("lettersModeEnabled", "false");
+    localStorage.setItem("numbersModeEnabled", "false");
+    localStorage.setItem("colorsModeEnabled", "false");
+    
+    const lettersBtn = document.getElementById("selectLetters");
+    const numbersBtn = document.getElementById("selectNumbers");
+    const colorsBtn = document.getElementById("selectColors");
+    
+    if (lettersBtn) lettersBtn.classList.remove('selected');
+    if (numbersBtn) numbersBtn.classList.remove('selected');
+    if (colorsBtn) colorsBtn.classList.remove('selected');
+    
+    const countElement = document.getElementById("count");
+    if (countElement) countElement.textContent = "0";
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.pathname.endsWith('Home.html')) {
+        resetGameModes();
+        
+        // Reset the enabled flags
+        lettersModeEnabled = false;
+        numbersModeEnabled = false;
+        colorsModeEnabled = false;
+        
+        // Update the UI state
+        updateSelectedCount();
+    }
+});
